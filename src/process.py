@@ -1,7 +1,8 @@
 # Process the HourlyDryBulbTemp and MonthlyMeanTemperature
 import pandas as pd
 import numpy as np
-from tomlkit import date
+from ruamel.yaml import YAML
+
 
 def compute_aggregate(df):
     monthly_data = []
@@ -25,10 +26,12 @@ def compute_aggregate(df):
     monthly_avg_df = pd.DataFrame({'computed_monthly_mean' : monthly_avg})
     monthly_avg_df.to_csv('data/computed_monthly_mean.csv', index=False)
 
-def convert_to_df():
-    df = pd.read_csv('data/file1.csv', dtype="str")
+def convert_to_df(file_idx):
+    df = pd.read_csv(f'data/file_{file_idx}.csv', dtype="str")
     return df
 
 if __name__ == '__main__':
-    df = convert_to_df()
+    yaml = YAML(typ="safe")
+    params = yaml.load(open("params.yaml", encoding="utf-8"))
+    df = convert_to_df(file_idx=params['process']['file'])
     compute_aggregate(df)

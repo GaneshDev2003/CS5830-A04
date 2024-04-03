@@ -1,8 +1,10 @@
 schema: '2.0'
 stages:
   prepare:
-    cmd: python3 src/prepare.py -d data/file1.csv data/monthly_mean.csv
+    cmd: python3 src/prepare.py
   process:
-    cmd: python3 src/process.py -d data/file1.csv data/computed_monthly_mean.csv
+    cmd: python3 src/process.py
   evaluate:
-    cmd: python3 src/evaluate.py -d data/computed_monthly_mean.csv -d data/monthly_mean.csv
+    cmd: python3 src/evaluate.py
+  download:
+    cmd: python3 src/download.py
